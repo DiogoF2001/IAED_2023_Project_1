@@ -48,12 +48,19 @@ int main(){
 				s=NULL;
 				continue;
 				break;
+			
 			case 'c':
 				Modo_C(s,carreiras_all);
 				break;
+			
 			case 'p':
 				Modo_P(s,paragens_all);
 				break;
+
+			case 'l':
+				Modo_L(s,carreiras_all,paragens_all);
+				break;
+
 			default:
 				break;
 		}

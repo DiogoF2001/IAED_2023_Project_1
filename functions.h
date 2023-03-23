@@ -45,6 +45,7 @@ typedef struct Lista_Ligacao
 car* Init_Car();
 par* Init_Par();
 lig* Init_Lig();
+lis_par* Init_lis_par_cell();
 
 int Find_Car(car**,char*);
 int Find_Par(par**,char*);
@@ -52,7 +53,7 @@ int Find_Par(par**,char*);
 void Print_Car(car**,car*,int);
 void Print_Par(par**, par*);
 
-int Ckeck_Lig(car*,par*,par*);
+int Check_Lig(car*,par*,par*);
 
 int Rem_blank();
 char** Get_Name(int,char*);
@@ -62,5 +63,6 @@ int Is_Text(char);
 
 void Modo_C(char*,car**);
 void Modo_P(char*,par**);
+void Modo_L(char*,car**,par**);
 
 #endif

@@ -36,6 +36,21 @@ par* Init_Par(){
 	return p;
 }
 
+lis_par* Init_lis_par_cell(){
+	lis_par *c = NULL;
+
+	c = malloc(sizeof(lis_par));
+	if(c==NULL){
+		printf("ERROR: memory allocation\n");
+		exit(-1);
+	}
+	c->next = NULL;
+	c->this = NULL;
+	c->prev = NULL;
+	
+	return c;
+}
+
 lig* Init_Lig(){
 	lig *l;
 	l = malloc(sizeof(par));
@@ -51,7 +66,7 @@ lig* Init_Lig(){
 	return l;
 }
 
-int Ckeck_Lig(car* c, par* ori, par *dest){
+int Check_Lig(car* c, par* ori, par *dest){
 	if(c->ori->this == dest || c->dest->this == ori)
 		return 1;
 	else
@@ -249,122 +264,4 @@ int Count_Args(char* str){
 		}
 	}
 	return args;
-}
-
-void Modo_C(char* s, car** c){
-	int args=0, i;
-	char *nome, *inv;
-	char useless;
-
-	nome=malloc(sizeof(char)*MAX_NOME_CAR);
-	if(nome == NULL){
-		printf("ERROR: memory allocation\n");
-		exit(-1);
-	}
-
-	inv=malloc(sizeof(char)*(strlen("inverso")+1));
-	if(inv == NULL){
-		printf("ERROR: memory allocation\n");
-		exit(-1);
-	}
-
-	args = Count_Args(s);
-	switch (args)
-	{
-	case 1:
-		Print_Car(c,NULL,0);
-		break;
-	
-	case 2:
-		if(sscanf(s,"%c %s", &useless, nome)!=2)
-			exit(-1);
-		i = Find_Car(c,nome);
-		if(c[i] == NULL){
-			c[i] = Init_Car();
-			strcpy(c[i]->nome,nome);
-		}
-		else
-			Print_Car(NULL,c[i],0);
-		break;
-	
-	case 3:
-		if(sscanf(s,"%c %s %s", &useless, nome, inv)!=3)
-			exit(-1);
-		i = Find_Car(c,nome);
-		if(c[i] == NULL){
-			c[i] = Init_Car();
-			strcpy(c[i]->nome,nome);
-		}
-		else{
-			if(strncmp(inv,"inverso",strlen(inv) == 0 && strlen(inv)>=3))
-				Print_Car(NULL,c[i],1);
-			else
-				printf("incorrect sort option\n");
-		}
-		break;
-	
-	default:
-		break;
-	}
-	free(nome);
-	free(inv);
-}
-
-void Modo_P(char *s, par** p){
-	int args=0, i;
-	double lat = 0, lon = 0;
-	char *nome = NULL, *temp = NULL, **ret = NULL;
-
-	args = Count_Args(s);
-
-	switch (args)
-	{
-	case 1:
-		Print_Par(p,NULL);
-		break;
-	
-	case 2:
-		ret = Get_Name(MAX_NOME_PAR,s);
-		if(ret == NULL){
-			printf("RET == NULL\n");
-			exit(-1);
-		}
-		nome = ret[0];
-		i = Find_Par(p,nome);
-		if(p[i]==NULL){
-			printf("%s: no such stop.\n", nome);
-		}
-		break;
-	
-	case 4:
-		ret = Get_Name(MAX_NOME_PAR,s);
-		if(ret == NULL){
-			printf("RET == NULL\n");
-			exit(-1);
-		}
-		nome = ret[0];
-		temp = ret[1];
-		i = Find_Par(p,nome);
-		if(p[i]!=NULL){
-			printf("%s: stop already exists.\n", nome);
-		}
-		else{
-			p[i] = Init_Par();
-			if(sscanf(temp,"%lf %lf", &lat, &lon) != 2)
-				exit(-1);
-			strcpy(p[i]->nome,nome);
-			p[i]->lat = lat;
-			p[i]->lon = lon;
-			
-		}
-		break;
-
-	default:
-		break;
-	}
-
-	if(nome != NULL)
-		free(nome);
-	if(ret != NULL)
-		free(ret);
 }
