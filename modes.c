@@ -80,7 +80,7 @@ void Modo_P(char *s, par** p){
 		ret = Get_Name(MAX_NOME_PAR,s);
 		if(ret == NULL){
 			printf("RET == NULL\n");
-			exit(0);
+			exit(-1);
 		}
 		nome = ret[0];
 		i = Find_Par(p,nome);
@@ -136,7 +136,7 @@ void Modo_L(char* s, car **c, par **p){
 
 	if(Count_Args(s)!=6){
 		printf("Not enough arguments for mode L\n");
-		exit(0);
+		exit(-1);
 	}
 
 	ret = Get_Name(MAX_NOME_CAR,s);
@@ -185,7 +185,7 @@ void Modo_L(char* s, car **c, par **p){
 	}
 
 	if(sscanf(ret[1], "%lf %lf", &cost, &dur) != 2)
-		exit(0);
+		exit(-1);
 	
 	if(ret[0]!=NULL)
 		free(ret[0]);
