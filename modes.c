@@ -209,26 +209,25 @@ void Modo_L(char* s, car **c, par **p){
 		c[i_c]->cost += cost;
 		c[i_c]->dur += dur;
 
-		c[i_c]->num_par +=2;
+		c[i_c]->num_par = 2;
 	}
 	else{
 		if(!Check_Lig(c[i_c],p[i_p_ori],p[i_p_des])){
 			printf("link cannot be associated with bus line.\n");
 			return;
 		}
-		if(p[i_p_des] == c[i_c]->ori->this){
-			if(Find_Par_in_Lis(p[i_p_ori],c[i_c]->ori) == NULL)
-				c[i_c]->num_par++;
-
+		if(p[i_p_ori] == c[i_c]->dest->this && p[i_p_des] == c[i_c]->ori->this){
 			l_p_temp = Init_lis_par_cell();
-			l_p_temp->this = p[i_p_ori];
+			l_p_temp->this = p[i_p_des];
 
-			l_p_temp->next = c[i_c]->ori;
-			c[i_c]->ori->prev = l_p_temp;
-			c[i_c]->ori = l_p_temp;
+			l_p_temp->prev = c[i_c]->dest;
+			c[i_c]->dest->next = l_p_temp;
+			c[i_c]->dest = l_p_temp;
 			
 			c[i_c]->cost += cost;
 			c[i_c]->dur += dur;
+
+			c[i_c]->num_par ++;
 		}
 		else if(p[i_p_ori] == c[i_c]->dest->this){
 			if(Find_Par_in_Lis(p[i_p_des],c[i_c]->ori) == NULL)
@@ -240,6 +239,20 @@ void Modo_L(char* s, car **c, par **p){
 			l_p_temp->prev = c[i_c]->dest;
 			c[i_c]->dest->next = l_p_temp;
 			c[i_c]->dest = l_p_temp;
+			
+			c[i_c]->cost += cost;
+			c[i_c]->dur += dur;
+		}
+		else if(p[i_p_des] == c[i_c]->ori->this){
+			if(Find_Par_in_Lis(p[i_p_ori],c[i_c]->ori) == NULL)
+				c[i_c]->num_par++;
+
+			l_p_temp = Init_lis_par_cell();
+			l_p_temp->this = p[i_p_ori];
+
+			l_p_temp->next = c[i_c]->ori;
+			c[i_c]->ori->prev = l_p_temp;
+			c[i_c]->ori = l_p_temp;
 			
 			c[i_c]->cost += cost;
 			c[i_c]->dur += dur;
