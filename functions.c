@@ -76,7 +76,8 @@ lis_par* Find_Par_in_Lis(par* p, lis_par* l){
 }
 
 void Add_to_Car_lis(car* c, par* p){
-	lis_car *temp = p->cars, *new = NULL/*, *aux = NULL*/;
+	lis_car *temp = p->cars, *new = NULL, *aux = NULL;
+	int size = 0;
 
 	new = Init_lis_car_cell();
 	new->this = c;
@@ -84,13 +85,26 @@ void Add_to_Car_lis(car* c, par* p){
 		p->cars = new;
 	}
 	else {
-		while(temp->next !=NULL){
-			/*if(strncmp(temp->this->nome,c->nome,strlen(temp->this->nome))>0){
-
-			}*/
-			temp = temp->next;
+		aux = NULL;
+		while(temp !=NULL){
+			size = strlen(temp->this->nome);
+			if(strlen(c->nome)<strlen(temp->this->nome))
+				size = strlen(c->nome);
+			if(strncmp(c->nome,temp->this->nome,size)>=0){
+				aux = temp;
+				temp = temp->next;
+				continue;
+			}
+			break;
 		}
-		temp->next = new;
+		if(aux == NULL){
+			new->next = p->cars;
+			p->cars = new;
+		}
+		else{
+			new->next = aux->next;
+			aux->next = new;
+		}
 		
 	}
 }
