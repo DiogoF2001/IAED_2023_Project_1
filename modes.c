@@ -30,7 +30,7 @@ void Modo_C(char* s, car** c){
 	
 	case 2:
 		if(sscanf(s,"%c %s", &useless, nome)!=2)
-			exit(-1);
+			exit(0);
 		i = Find_Car(c,nome);
 		if(c[i] == NULL){
 			c[i] = Init_Car();
@@ -42,7 +42,7 @@ void Modo_C(char* s, car** c){
 	
 	case 3:
 		if(sscanf(s,"%c %s %s", &useless, nome, inv)!=3)
-			exit(-1);
+			exit(0);
 		i = Find_Car(c,nome);
 		if(c[i] == NULL){
 			c[i] = Init_Car();
@@ -80,7 +80,7 @@ void Modo_P(char *s, par** p){
 		ret = Get_Name(MAX_NOME_PAR,s);
 		if(ret == NULL){
 			printf("RET == NULL\n");
-			exit(-1);
+			exit(0);
 		}
 		nome = ret[0];
 		i = Find_Par(p,nome);
@@ -95,7 +95,7 @@ void Modo_P(char *s, par** p){
 		ret = Get_Name(MAX_NOME_PAR,s);
 		if(ret == NULL){
 			printf("RET == NULL\n");
-			exit(-1);
+			exit(0);
 		}
 		nome = ret[0];
 		temp = ret[1];
@@ -106,7 +106,7 @@ void Modo_P(char *s, par** p){
 		else{
 			p[i] = Init_Par();
 			if(sscanf(temp,"%lf %lf", &lat, &lon) != 2)
-				exit(-1);
+				exit(0);
 			strcpy(p[i]->nome,nome);
 			p[i]->lat = lat;
 			p[i]->lon = lon;
@@ -136,7 +136,7 @@ void Modo_L(char* s, car **c, par **p){
 
 	if(Count_Args(s)!=6){
 		printf("Not enough arguments for mode L\n");
-		exit(-1);
+		exit(0);
 	}
 
 	ret = Get_Name(MAX_NOME_CAR,s);
@@ -185,7 +185,7 @@ void Modo_L(char* s, car **c, par **p){
 	}
 
 	if(sscanf(ret[1], "%lf %lf", &cost, &dur) != 2)
-		exit(-1);
+		exit(0);
 	
 	if(ret[0]!=NULL)
 		free(ret[0]);

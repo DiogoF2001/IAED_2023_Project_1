@@ -241,7 +241,7 @@ int Find_Car(car** c,char* s){
 		else
 			return i;
 	}
-	exit(-1);
+	return(-1);
 }
 
 /* Tries to find the stop with the name "s":
@@ -258,7 +258,7 @@ int Find_Par(par** p,char* s){
 		else
 			return i;
 	}
-	exit(-1);
+	return(-1);
 }
 
 int Is_Text(char c){
