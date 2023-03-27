@@ -31,9 +31,68 @@ par* Init_Par(){
 	p->lat = 0;
 	p->lon = 0;
 	p->num_car = 0;
-	p->prev = NULL;
-	p->next = NULL;
+	p->cars = NULL;
 	return p;
+}
+
+lis_car* Init_lis_car_cell(){
+	lis_car *c = NULL;
+	c = malloc(sizeof(lis_car));
+	if(c==NULL){
+		printf("ERROR: memory allocation\n");
+		exit(-1);
+	}
+	c->next = NULL;
+	c->this = NULL;
+	
+	return c;
+}
+
+lis_car* Find_Car_in_Lis (car* c, lis_car* l){
+	lis_car *temp = l;
+	while(temp!=NULL){
+		if(temp->this == c)
+			break;
+		else
+			temp = temp->next;
+	}
+	return temp;
+}
+
+lis_par* Find_Par_in_Lis(par* p, lis_par* l){
+	lis_par *temp = l;
+	while(temp!=NULL){
+		if(temp->this == p)
+			break;
+		else{
+			temp = temp->next;
+			if(temp == l){
+				temp = NULL;
+				break;
+			}
+		}
+	}
+	return temp;
+}
+
+void Add_to_Car_lis(car* c, par* p){
+	lis_car *temp = p->cars, *new = NULL/*, *aux = NULL*/;
+
+	new = Init_lis_car_cell();
+	new->this = c;
+	if(temp == NULL){
+		p->cars = new;
+	}
+	else {
+		while(temp->next !=NULL){
+			/*if(strncmp(temp->this->nome,c->nome,strlen(temp->this->nome))>0){
+
+			}*/
+			temp = temp->next;
+		}
+		temp->next = new;
+		
+	}
 }
 
 lis_par* Init_lis_par_cell(){
@@ -49,21 +108,6 @@ lis_par* Init_lis_par_cell(){
 	c->prev = NULL;
 	
 	return c;
-}
-
-lig* Init_Lig(){
-	lig *l;
-	l = malloc(sizeof(par));
-	if(l==NULL){
-		printf("ERROR: memory allocation\n");
-		exit(-1);
-	}
-	l->carr = NULL;
-	l->ori = NULL;
-	l->des = NULL;
-	l->cost = 0;
-	l->dur = 0;
-	return l;
 }
 
 int Check_Lig(car* c, par* ori, par *dest){
@@ -90,7 +134,7 @@ char** Get_Name(int max, char* str){
 		exit(-1);
 	}
 
-	ret[0] = malloc(sizeof(char)*max);
+	ret[0] = malloc(sizeof(char)*(max+1));
 	if(ret[0]==NULL){
 		printf("ERRO: memory allocation\n\n");
 		exit(-1);
@@ -126,12 +170,11 @@ void Print_Car(car** c_l, car* c, int inv){
 	
 	/*If it's a single bus line*/
 	if(c != NULL && c_l == NULL){
-		printf("%s ", c->nome);
 		/*REVIEW*******************************************************/
 		if(c->ori != NULL && c->dest != NULL)
 			switch (inv){
 				/*If it IS supposed to invert the order*/
-				case '1':
+				case 1:
 					next = c->dest;
 					while(next!=c->ori){
 						printf("%s, ", next->this->nome);
@@ -140,7 +183,7 @@ void Print_Car(car** c_l, car* c, int inv){
 					printf("%s", c->ori->this->nome);
 					break;
 				/*If it IS NOT supposed to invert the order*/
-				case '0':
+				case 0:
 					next = c->ori;
 					while(next!=c->dest){
 						printf("%s, ", next->this->nome);

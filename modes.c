@@ -9,7 +9,7 @@ void Modo_C(char* s, car** c){
 	char *nome, *inv;
 	char useless;
 
-	nome=malloc(sizeof(char)*MAX_NOME_CAR);
+	nome=malloc(sizeof(char)*(MAX_NOME_CAR+1));
 	if(nome == NULL){
 		printf("ERROR: memory allocation\n");
 		exit(-1);
@@ -86,7 +86,9 @@ void Modo_P(char *s, par** p){
 		i = Find_Par(p,nome);
 		if(p[i]==NULL){
 			printf("%s: no such stop.\n", nome);
+			return;
 		}
+		Print_Par(NULL,p[i]);
 		break;
 	
 	case 4:
@@ -122,11 +124,15 @@ void Modo_P(char *s, par** p){
 		free(ret);
 }
 
+/*
+Missing loop lines and interceptions sorting!!!!
+*/
+
 void Modo_L(char* s, car **c, par **p){
 	int i_c = 0, i_p_ori = 0, i_p_des = 0;
 	char **ret = NULL, *temp = NULL;
 	double cost = -1, dur = -1;
-	lis_par *l_temp = NULL;
+	lis_par *l_p_temp = NULL;
 
 	if(Count_Args(s)!=6){
 		printf("Not enough arguments for mode L\n");
@@ -178,15 +184,15 @@ void Modo_L(char* s, car **c, par **p){
 		return;
 	}
 
+	if(sscanf(ret[1], "%lf %lf", &cost, &dur) != 2)
+		exit(-1);
+	
 	if(ret[0]!=NULL)
 		free(ret[0]);
 	free(ret);
 
-	if(sscanf(ret[1], "%lf %lf", &cost, &dur) != 2)
-		exit(-1);
-	
 	if(cost < 0 || dur < 0){
-		printf("negative cost or duration\n");
+		printf("negative cost or duration.\n");
 		return;
 	}
 	
@@ -203,6 +209,7 @@ void Modo_L(char* s, car **c, par **p){
 		c[i_c]->cost += cost;
 		c[i_c]->dur += dur;
 
+		c[i_c]->num_par +=2;
 	}
 	else{
 		if(!Check_Lig(c[i_c],p[i_p_ori],p[i_p_des])){
@@ -210,28 +217,60 @@ void Modo_L(char* s, car **c, par **p){
 			return;
 		}
 		if(p[i_p_des] == c[i_c]->ori->this){
-			l_temp = Init_lis_par_cell();
-			l_temp->this = p[i_p_ori];
+			if(Find_Par_in_Lis(p[i_p_ori],c[i_c]->ori) == NULL)
+				c[i_c]->num_par++;
 
-			l_temp->next = c[i_c]->ori;
-			c[i_c]->ori->prev = l_temp;
-			c[i_c]->ori = l_temp;
+			l_p_temp = Init_lis_par_cell();
+			l_p_temp->this = p[i_p_ori];
+
+			l_p_temp->next = c[i_c]->ori;
+			c[i_c]->ori->prev = l_p_temp;
+			c[i_c]->ori = l_p_temp;
 			
 			c[i_c]->cost += cost;
 			c[i_c]->dur += dur;
 		}
 		else if(p[i_p_ori] == c[i_c]->dest->this){
-			l_temp = Init_lis_par_cell();
-			l_temp->this = p[i_p_des];
+			if(Find_Par_in_Lis(p[i_p_des],c[i_c]->ori) == NULL)
+				c[i_c]->num_par++;
 
-			l_temp->prev = c[i_c]->dest;
-			c[i_c]->dest->next = l_temp;
-			c[i_c]->dest = l_temp;
+			l_p_temp = Init_lis_par_cell();
+			l_p_temp->this = p[i_p_des];
+
+			l_p_temp->prev = c[i_c]->dest;
+			c[i_c]->dest->next = l_p_temp;
+			c[i_c]->dest = l_p_temp;
 			
 			c[i_c]->cost += cost;
 			c[i_c]->dur += dur;
 		}
 	}
 
+	if(Find_Car_in_Lis(c[i_c],p[i_p_ori]->cars) == NULL){
+		p[i_p_ori]->num_car ++;
+		Add_to_Car_lis(c[i_c],p[i_p_ori]);
+	}
+	if(Find_Car_in_Lis(c[i_c],p[i_p_des]->cars) == NULL){
+		p[i_p_des]->num_car ++;
+		Add_to_Car_lis(c[i_c],p[i_p_des]);
+	}
+	
 
+}
+
+void Modo_I(par** p){
+	int i;
+	lis_car *temp=NULL;
+	for(i=0;i<MAX_NUM_PAR && p[i] != NULL;i++){
+		if(p[i]->num_car>1){
+			printf("%s %d:", p[i]->nome, p[i]->num_car);
+			temp = p[i]->cars;
+			while(temp != NULL){
+				printf(" %s", temp->this->nome);
+				temp = temp->next;
+			}
+			printf("\n");
+		}
+	}
+	
 }

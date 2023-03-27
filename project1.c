@@ -60,6 +60,10 @@ int main(){
 			case 'l':
 				Modo_L(s,carreiras_all,paragens_all);
 				break;
+			
+			case 'i':
+				Modo_I(paragens_all);
+				break;
 
 			default:
 				break;
