@@ -30,7 +30,7 @@ void Modo_C(char* s, car** c){
 	
 	case 2:
 		if(sscanf(s,"%c %s", &useless, nome)!=2)
-			exit(0);
+			exit(1);
 		i = Find_Car(c,nome);
 		if(c[i] == NULL){
 			c[i] = Init_Car();
@@ -42,7 +42,7 @@ void Modo_C(char* s, car** c){
 	
 	case 3:
 		if(sscanf(s,"%c %s %s", &useless, nome, inv)!=3)
-			exit(0);
+			exit(1);
 		i = Find_Car(c,nome);
 		if(c[i] == NULL){
 			c[i] = Init_Car();
