@@ -36,11 +36,20 @@ typedef struct Lista_Carreiras
 	struct Lista_Carreiras *next;
 } lis_car;
 
+/*
+These functions allocate and initialise new structs or elements of a list
+*/
+
 car* Init_Car();
 par* Init_Par();
 
 lis_par* Init_lis_par_cell();
 lis_car* Init_lis_car_cell();
+
+/*
+These functions return the indice of the element they're looking for
+or the indice for the first open slot
+*/
 
 int Find_Car(car**,char*);
 int Find_Par(par**,char*);
@@ -48,19 +57,44 @@ int Find_Par(par**,char*);
 lis_car* Find_Car_in_Lis(car*,lis_car*);
 lis_par* Find_Par_in_Lis(par*,lis_par*);
 
+/*
+Adds a new line to the list of lines that the stop belongs to
+*/
+
 void Add_to_Car_lis(car*,par*);
+
+/*
+These functions deal with the output from Modes C and P
+*/
 
 void Print_Car(car**,car*,int);
 void Print_Par(par**, par*);
 
+/*
+Returns 1 if the link is valid, 0 if not
+*/
+
 int Check_Lig(car*,par*,par*);
 
-int Rem_blank();
+
+/*
+Gets the name of something even if it's delimited by "" 
+*/
 char** Get_Name(int,char*);
 
+/*
+Returns the number of arguments in the input read
+*/
 int Count_Args(char*);
+
+/*
+Returns 1 if its a digit, a letter, or a dot
+*/
 int Is_Text(char);
 
+/*
+These functions receive the input read and process the various commands
+*/
 void Modo_C(char*,car**);
 void Modo_P(char*,par**);
 void Modo_L(char*,car**,par**);

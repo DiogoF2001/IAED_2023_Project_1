@@ -77,7 +77,7 @@ lis_par* Find_Par_in_Lis(par* p, lis_par* l){
 
 void Add_to_Car_lis(car* c, par* p){
 	lis_car *temp = p->cars, *new = NULL, *aux = NULL;
-	int size = 0;
+	/*int size = 0;*/
 
 	new = Init_lis_car_cell();
 	new->this = c;
@@ -87,10 +87,10 @@ void Add_to_Car_lis(car* c, par* p){
 	else {
 		aux = NULL;
 		while(temp !=NULL){
-			size = strlen(temp->this->nome);
+			/*size = strlen(temp->this->nome);
 			if(strlen(c->nome)<strlen(temp->this->nome))
-				size = strlen(c->nome);
-			if(strncmp(c->nome,temp->this->nome,size)>=0){
+				size = strlen(c->nome);*/
+			if(strcmp(c->nome,temp->this->nome)>=0){
 				aux = temp;
 				temp = temp->next;
 				continue;
@@ -131,12 +131,6 @@ int Check_Lig(car* c, par* ori, par *dest){
 		return 0;
 }
 
-int Rem_blank(){
-	char a = getchar();
-	while((a == ' ') && (a != '\n') && (a != EOF))
-		a = getchar();
-	return a;
-}
 
 char** Get_Name(int max, char* str){
 	int i = 0, size = 0;
