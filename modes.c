@@ -52,7 +52,7 @@ void Modo_C(char* s, car** c){
 			if(strncmp(inv,"inverso",strlen(inv) == 0 && strlen(inv)>=3))
 				Print_Car(NULL,c[i],1);
 			else
-				printf("incorrect sort option\n");
+				printf("incorrect sort option.\n");
 		}
 		break;
 	
@@ -86,7 +86,7 @@ void Modo_P(char *s, par** p){
 		i = Find_Par(p,nome);
 		if(p[i]==NULL){
 			printf("%s: no such stop.\n", nome);
-			return;
+			break;;
 		}
 		Print_Par(NULL,p[i]);
 		break;
