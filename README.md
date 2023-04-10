@@ -12,7 +12,7 @@ Informações detalhadas sobre o processo de submissão estão disponíveis em [
 
 # Evaluation
 
-2023-03-27T19:57:20
+Mon Mar 27 19:57:24 2023 +0100
 
 ## Test 1: [+ Accepted+].
 ## Test 2: [+ Accepted+].
@@ -59,5 +59,5 @@ Informações detalhadas sobre o processo de submissão estão disponíveis em [
 ## Number of passed tests: 27/32
 
 
-Your code will not be reevaluated if you submit before 2023-03-27 20:07:20 @ Lisbon, Portugal. You need to wait 10 minute(s).
+Your code will not be reevaluated. The project deadline has passed.
 
