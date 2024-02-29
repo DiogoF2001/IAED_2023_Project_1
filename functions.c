@@ -154,7 +154,7 @@ char** Get_Name(int max, char* str){
 
 	if(temp[i] == '"'){
 		i++;
-		while(temp[i] != '"' && size<max-1){
+		while(temp[i] != '"' && size<max){
 			ret[0][size]=temp[i];
 			i++;
 			size++;
@@ -179,7 +179,7 @@ void Print_Car(car** c_l, car* c, int inv){
 	/*If it's a single bus line*/
 	if(c != NULL && c_l == NULL){
 		/*REVIEW*******************************************************/
-		if(c->ori != NULL && c->dest != NULL)
+		if(c->ori != NULL && c->dest != NULL){
 			switch (inv){
 				/*If it IS supposed to invert the order*/
 				case 1:
@@ -202,7 +202,8 @@ void Print_Car(car** c_l, car* c, int inv){
 				default:
 					break;
 			}
-		printf("\n");
+			printf("\n");
+		}
 	}
 	if(c == NULL && c_l != NULL){
 		for(i=0; c_l[i] != NULL && i<MAX_NUM_CAR; i++){

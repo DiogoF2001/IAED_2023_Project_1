@@ -49,7 +49,7 @@ void Modo_C(char* s, car** c){
 			strcpy(c[i]->nome,nome);
 		}
 		else{
-			if(strncmp(inv,"inverso",strlen(inv) == 0 && strlen(inv)>=3))
+			if(strncmp(inv,"inverso",strlen(inv)) == 0 && strlen(inv)>=3)
 				Print_Car(NULL,c[i],1);
 			else
 				printf("incorrect sort option.\n");
