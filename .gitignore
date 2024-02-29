@@ -8,4 +8,7 @@
 !public-tests/*.in
 !public-tests/*.out
 !public-tests/Makefile
-
+!p1-private-tests/
+!p1-private-tests/*.in
+!p1-private-tests/*.out
+!p1-private-tests/Makefile

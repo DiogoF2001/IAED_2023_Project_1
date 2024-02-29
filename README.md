@@ -14,50 +14,10 @@ Informações detalhadas sobre o processo de submissão estão disponíveis em [
 
 Mon Mar 27 19:57:24 2023 +0100
 
-## Test 1: [+ Accepted+].
-## Test 2: [+ Accepted+].
-## Test 3: [+ Accepted+].
-## Test 4: [+ Accepted+].
-## Test 5: [+ Accepted+].
-## Test 6: [+ Accepted+].
-## Test 7: [+ Accepted+].
-## Test 8: [+ Accepted+].
-## Test 9: [+ Accepted+].
-## Test 10: [- Wrong Answer-].
+## Testes públicos
 
+Para correr os testes públicos, ir á diretoria "public-tests" e correr o comado make
 
-## Test 11: [+ Accepted+].
-## Test 12: [+ Accepted+].
-## Test 13: [+ Accepted+].
-## Test 14: [+ Accepted+].
-## Test 15: [- Wrong Answer-].
+## Testes privados
 
-
-## Test 16: [- Wrong Answer-].
-
-
-## Test 17: [+ Accepted+].
-## Test 18: [+ Accepted+].
-## Test 19: [+ Accepted+].
-## Test 20: [+ Accepted+].
-## Test 21: [- Wrong Answer-].
-
-
-## Test 22: [- Presentation Error-].
-## Test 23: [+ Accepted+].
-## Test 24: [+ Accepted+].
-## Test 25: [+ Accepted+].
-## Test 26: [+ Accepted+].
-## Test 27: [+ Accepted+].
-## Test 28: [+ Accepted+].
-## Test 29: [+ Accepted+].
-## Test 30: [+ Accepted+].
-## Test 31: [+ Accepted+].
-## Test 32: [+ Accepted+].
-
-
-## Number of passed tests: 27/32
-
-
-Your code will not be reevaluated. The project deadline has passed.
-
+Para correr os testes públicos, ir á diretoria "p1-private-tests" e correr o comado make
